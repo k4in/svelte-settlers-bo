@@ -1,0 +1,26 @@
+export const buildings = {
+  foundation: [
+    'woodcutter',
+    'stonecutter',
+    'sawmill',
+    'forester',
+    'small residency',
+    'medium residency',
+    'large residency',
+    'stone mine',
+  ],
+  industry: [
+    'coal mine',
+    'iron mine',
+    'gold mine',
+    'sulfur mine',
+    'iron smelter',
+    'gold smelter',
+    'toolsmith',
+    'weaponsmith',
+    'coaler',
+  ],
+  food: ['farm', 'mill', 'bakery', 'waterworker', 'animal farm', 'slaughter', 'fisher', 'hunter'],
+  mana: ['manaprod level 1', 'manaprod level 2', 'small temple', 'large temple'],
+  military: ['small tower', 'barracks'],
+};
