@@ -16,7 +16,7 @@
   const categories: BuildingCategory[] = Object.keys(buildings) as BuildingCategory[];
 </script>
 
-<main class="grid grid-cols-2 grid-rows-[1fr] gap-10 p-6 bg-neutral-50">
+<main class="grid grid-cols-2 grid-rows-[1fr] gap-10 p-6 bg-neutral-50 h-full max-h-full">
   <div>
     <div class="mb-4 flex items-center gap-2">
       {#each categories as name}
@@ -43,7 +43,7 @@
       {/each}
     </ul>
   </div>
-  <div>
+  <div class="max-h-full overflow-hidden">
     <div class="flex items-center justify-between mb-4">
       <h1 class="text-xl font-medium text-neutral-800">Build Order</h1>
       <button

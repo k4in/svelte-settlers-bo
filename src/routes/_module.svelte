@@ -3,6 +3,6 @@
 </script>
 
 <Header />
-<div class={['overflow-auto', 'p-10']}>
+<div class={['overflow-auto', 'p-10', 'max-h-full']}>
   <slot></slot>
 </div>
