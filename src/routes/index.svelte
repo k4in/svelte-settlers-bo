@@ -1,20 +1,39 @@
 <script lang="ts">
+  import { Trash2Icon, HammerIcon, BombIcon } from '@lucide/svelte';
+  import { buildings } from '../data/buildings';
+
   type BuildOrderEntry = {
     id: string;
     building: string;
     status: 'pending' | 'isBuilt' | 'isDestroyed';
   };
 
-  import { Trash2Icon, HammerIcon, BombIcon } from '@lucide/svelte';
-  import { buildings } from '../data/buildings';
+  type BuildingCategory = keyof typeof buildings;
+
   let buildOrder = $state<BuildOrderEntry[]>([]);
+  let activeBuildingCategory = $state<BuildingCategory>('foundation');
+
+  const categories: BuildingCategory[] = Object.keys(buildings) as BuildingCategory[];
 </script>
 
 <main class="grid grid-cols-2 grid-rows-[1fr] gap-10 p-6 bg-neutral-50">
   <div>
-    <h1 class="text-xl font-medium mb-4 text-neutral-800">Foundation</h1>
+    <div class="mb-4 flex items-center gap-2">
+      {#each categories as name}
+        <button
+          onclick={() => (activeBuildingCategory = name)}
+          disabled={activeBuildingCategory === name}
+          class={[
+            'capitalize px-3 py-2 text-neutral-700 hover:text-teal-600 transition-colors font-medium rounded',
+            activeBuildingCategory === name && 'text-white bg-teal-600 hover:text-white hover:bg-teal-600',
+          ]}
+        >
+          {name}
+        </button>
+      {/each}
+    </div>
     <ul role="list" aria-label="Available buildings" class="flex flex-col gap-3">
-      {#each buildings.foundation as building}
+      {#each buildings[activeBuildingCategory] as building}
         <button
           class="p-3 w-full bg-white hover:bg-neutral-100 active:bg-neutral-200 transition-all border-neutral-200 border rounded shadow-sm hover:shadow text-neutral-700 text-left capitalize"
           onclick={() => buildOrder.push({ id: crypto.randomUUID(), building, status: 'pending' })}
@@ -36,7 +55,7 @@
         Reset
       </button>
     </div>
-    <ul class="flex flex-col gap-3" role="list" aria-label="Build Order">
+    <ul class="flex flex-col gap-3 overflow-y-auto max-h-full" role="list" aria-label="Build Order">
       {#if buildOrder.length < 1}
         <p class="italic text-neutral-500">Click a building on the left to add it to the build order!</p>
       {:else}
